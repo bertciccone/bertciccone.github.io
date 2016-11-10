@@ -15,19 +15,8 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- perf: media query -->
     <link href="css/print.css" rel="stylesheet" media="print">
-
-    <script>
-      (function(w, g) {
-        w['GoogleAnalyticsObject'] = g;
-        w[g] = w[g] || function() {
-          (w[g].q = w[g].q || []).push(arguments)
-        };
-        w[g].l = 1 * new Date();
-      })(window, 'ga');
-      // Optional TODO: replace with your Google Analytics profile ID.
-      ga('create', 'UA-XXXX-Y');
-      ga('send', 'pageview');
-    </script>
+    <!-- perf: move inline analytics js to file -->
+    <script async src="js/analyticsfun.js"></script>
     <!-- perf: async on analytics script -->
     <script async src="https://www.google-analytics.com/analytics.js">
     </script>
