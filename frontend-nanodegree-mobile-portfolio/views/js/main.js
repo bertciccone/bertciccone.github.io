@@ -442,6 +442,7 @@ var resizePizzas = function (size) {
   changeSliderLabel(size);
 
   // Iterates through pizza elements on the page and changes their widths
+  // perf: resize pizzas using a constant percentage
   function changePizzaSizes(size) {
     switch (size) {
     case "1":
@@ -508,7 +509,7 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   function updateMovers() {
-    // perf: query and save scrollTop to prevent repeated calls in loop
+    // perf: query and save scrollTop to prevent repeated accesses in loop
     var scrollTop = document.body.scrollTop / 1250;
     // perf: use saved mover elements
     // var items = document.querySelectorAll('.mover');
