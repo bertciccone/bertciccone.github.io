@@ -541,7 +541,8 @@ var movers = [];
 document.addEventListener('DOMContentLoaded', function () {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // perf: reduce number of moving pizzas to typical visible window
+  for (var i = 0; i < 60; i++) {
     movers[i] = document.createElement('img');
     movers[i].className = 'mover';
     // perf: reduced size of the image file
