@@ -457,6 +457,7 @@ var resizePizzas = function (size) {
     default:
       console.log("bug");
     };
+    // perf: move querySelectorAll outside of loop
     var pizzas = document.querySelectorAll(".randomPizzaContainer");
     for (var i = 0; i < pizzas.length; i++) {
       pizzas[i].style.width = newwidth + "%";
@@ -540,19 +541,25 @@ var movers = [];
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function () {
-  var cols = 8;
+  var cols = 6;
   var s = 256;
-  // perf: reduce number of moving pizzas to typical visible window
-  for (var i = 0; i < 60; i++) {
-    movers[i] = document.createElement('img');
-    movers[i].className = 'mover';
-    // perf: reduced size of the image file
-    movers[i].src = "images/pizzasm.png";
-    movers[i].style.height = "100px";
-    movers[i].style.width = "77px";
-    movers[i].basicLeft = (i % cols) * s;
-    movers[i].style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(movers[i]);
+  // perf: move movingPizzas1 querySelector outside of loop
+  var movingPizzas1 = document.querySelector("#movingPizzas1");
+  var windowHeight = window.innerHeight;
+  for (var i = 0; i < 100; i++) {
+    var moverTop = Math.floor(i / cols) * s;
+    // perf: only create moving pizzas that fit in visible window
+    if (moverTop < windowHeight) {
+      movers[i] = document.createElement('img');
+      movers[i].className = 'mover';
+      // perf: reduced size of the moving pizza image file
+      movers[i].src = "images/pizzasm.png";
+      movers[i].style.height = "100px";
+      movers[i].style.width = "77px";
+      movers[i].basicLeft = (i % cols) * s;
+      movers[i].style.top = (Math.floor(i / cols) * s) + 'px';
+      movingPizzas1.appendChild(movers[i]);
+    }
   }
   updatePositions();
 });
