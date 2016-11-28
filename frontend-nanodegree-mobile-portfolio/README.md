@@ -5,8 +5,8 @@ frontend-nanodegree-mobile-portfolio
 
 #Getting Started
 
-The optimized pages can be run from: [frontend-nanodegree-mobile-portfolio](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/index.html).
-Sources can be downloaded from: [frontend-nanodegree-mobile-portfolio](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/).
+The optimized pages can be run from: [Run Portfolio](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/index.html).
+Sources can be downloaded from: [Get Sources](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/).
 
 #Optimizations: Portfolio Loading
 index.html:
