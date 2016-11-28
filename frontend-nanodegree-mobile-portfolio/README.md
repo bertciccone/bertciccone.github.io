@@ -7,6 +7,9 @@ frontend-nanodegree-mobile-portfolio
 
 The optimized pages can be run from: [Run Portfolio](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/index.html).
 Sources can be downloaded from: [Get Sources](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/).
+README.md can be downloaded from: [Get README](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/README.md).
+
+The following optimizations were implemented. (You can search for the following comments in the code files.)
 
 #Optimizations: Portfolio Loading
 index.html:
@@ -35,7 +38,8 @@ main.js:
 // perf: only create moving pizzas that fit in visible window
 
 #Optimizations: General
-
+pizza.html:
+perf: inline css
 
 ## ORIGINAL README CONTENT
 
