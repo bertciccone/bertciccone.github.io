@@ -3,7 +3,7 @@ frontend-nanodegree-mobile-portfolio
 
 ## Website Performance Optimization portfolio project
 
-#Getting Started
+# Getting Started
 
 The optimized pages can be run from: [Run Portfolio](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/index.html).
 Sources can be downloaded from: [Get Sources](https://bertcuda.github.io/frontend-nanodegree-mobile-portfolio/).
@@ -11,7 +11,7 @@ README.md can be downloaded from: [Get README](https://bertcuda.github.io/fronte
 
 The following optimizations were implemented. (You can search for the following comments in the code files.)
 
-#Optimizations: Portfolio Loading
+# Optimizations: Portfolio Loading
 index.html:
 perf: media = screen
 perf: replace complex css selectors with simple classes and eliminate unused css
@@ -21,23 +21,30 @@ perf: print media query
 perf: move inline analytics js to file
 perf: async on analytics script
 
-#Optimizations: Changing Pizza Sizes
+# Optimizations: Changing Pizza Sizes
 main.js:
 perf: resize pizzas using a constant percentage
-perf: move querySelectorAll outside of loop
+perf: use getElementsByClassName and move outside of loop [REVIEW SUGGESTION]
+perf: move getElementByID outside of loop [REVIEW SUGGESTION]
 perf: reduce size and optimize pizzeria image
 
-#Optimizations: Pizza Scrolling
+# Optimizations: Pizza Scrolling
 main.js:
-// perf: query and save scrollTop to prevent repeated accesses in loop
-// perf: use saved mover elements
-// perf: requestAnimationFrame before updating movers
-// perf: save mover elements to prevent repeated queries
-// perf: reduced size of the moving pizza image file
-// perf: move movingPizzas1 querySelector outside of loop
-// perf: only create moving pizzas that fit in visible window
+perf: query and save scrollTop to prevent repeated accesses in loop
+perf: use saved mover elements
+perf: requestAnimationFrame before updating movers
+perf: save mover elements to prevent repeated queries
+perf: reduced size of the moving pizza image file
+perf: move movingPizzas1 querySelector outside of loop
+perf: only create moving pizzas that fit in visible window
+perf: pre-calculate phase values [REVIEW SUGGESTION]
+perf: calculate the number of pizzas needed [REVIEW SUGGESTION]
+perf: set style.left to get ready to use translateX in updatePositions [REVIEW SUGGESTION]
+perf: use will-change: transform and translateX for faster repositioning [REVIEW SUGGESTION]
+Alternate optimization:
+perf: use backface-visibility: hidden [REVIEW SUGGESTION]
 
-#Optimizations: General
+# Optimizations: General
 pizza.html:
 perf: inline css
 

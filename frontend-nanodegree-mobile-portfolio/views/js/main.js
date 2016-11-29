@@ -457,8 +457,8 @@ var resizePizzas = function (size) {
     default:
       console.log("bug");
     };
-    // perf: move querySelectorAll outside of loop
-    var pizzas = document.querySelectorAll(".randomPizzaContainer");
+    // perf: use getElementsByClassName and move outside of loop [REVIEW SUGGESTION]
+    var pizzas = document.getElementsByClassName(".randomPizzaContainer");
     for (var i = 0; i < pizzas.length; i++) {
       pizzas[i].style.width = newwidth + "%";
     }
@@ -476,8 +476,9 @@ var resizePizzas = function (size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+// perf: move getElementByID outside of loop [REVIEW SUGGESTION]
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -512,11 +513,18 @@ function updatePositions() {
   function updateMovers() {
     // perf: query and save scrollTop to prevent repeated accesses in loop
     var scrollTop = document.body.scrollTop / 1250;
+    // perf: pre-calculate phase values [REVIEW SUGGESTION]
+    var phase = [];
+    for (var i = 0; i < 5; i++) {
+      phase.push(Math.sin(scrollTop + i));
+    }
     // perf: use saved mover elements
     // var items = document.querySelectorAll('.mover');
     for (var i = 0; i < movers.length; i++) {
-      var phase = Math.sin(scrollTop + (i % 5));
-      movers[i].style.left = movers[i].basicLeft + 100 * phase + 'px';
+      // var phase = Math.sin(scrollTop + (i % 5));
+      // movers[i].style.left = movers[i].basicLeft + 100 * phase[i % 5] + 'px';
+      // perf: use will-change: transform and translateX for faster repositioning [REVIEW SUGGESTION]
+      movers[i].style.transform = 'translateX(' + 100 * phase[i % 5] + 'px)';
     }
   }
 
@@ -546,20 +554,24 @@ document.addEventListener('DOMContentLoaded', function () {
   // perf: move movingPizzas1 querySelector outside of loop
   var movingPizzas1 = document.querySelector("#movingPizzas1");
   var windowHeight = window.innerHeight;
-  for (var i = 0; i < 100; i++) {
+  // perf: calculate the number of pizzas needed [REVIEW SUGGESTION]
+  var nPizzas = (windowHeight / s + 1) * cols;
+  for (var i = 0; i < nPizzas; i++) {
     var moverTop = Math.floor(i / cols) * s;
     // perf: only create moving pizzas that fit in visible window
-    if (moverTop < windowHeight) {
-      movers[i] = document.createElement('img');
-      movers[i].className = 'mover';
-      // perf: reduced size of the moving pizza image file
-      movers[i].src = "images/pizzasm.png";
-      movers[i].style.height = "100px";
-      movers[i].style.width = "77px";
-      movers[i].basicLeft = (i % cols) * s;
-      movers[i].style.top = (Math.floor(i / cols) * s) + 'px';
-      movingPizzas1.appendChild(movers[i]);
-    }
+    // if (moverTop < windowHeight) {
+    movers[i] = document.createElement('img');
+    movers[i].className = 'mover';
+    // perf: reduced size of the moving pizza image file
+    movers[i].src = "images/pizzasm.png";
+    movers[i].style.height = "100px";
+    movers[i].style.width = "77px";
+    movers[i].basicLeft = (i % cols) * s;
+    movers[i].style.top = (Math.floor(i / cols) * s) + 'px';
+    // perf: set style.left to get ready to use translateX in updatePositions [REVIEW SUGGESTION]
+    movers[i].style.left = movers[i].basicLeft + 'px';
+    movingPizzas1.appendChild(movers[i]);
+    // }
   }
   updatePositions();
 });
