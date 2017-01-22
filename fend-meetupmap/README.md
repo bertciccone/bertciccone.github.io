@@ -6,7 +6,7 @@ Find San Francisco Meetup events based on date (up to three days in advance), lo
 
 #Running the app
 
-Browse to xxxxxx.
+Browse to [San Francisco Meeups](bertcuda.github.io/fend-meetupmap/index.html).
 
 #Downloading sources
 
