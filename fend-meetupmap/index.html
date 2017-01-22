@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>San Francisco Meetups</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <header class="row">
+        <div id="app-title-col" class="col-xs-12">
+          <span id="hamburger">&#9776</span>
+          <img class="logo-image" src="img/highres_454596637.png" alt="Meetup logo">
+          <h1 class="app-title">San Francisco Meetups</h1>
+        </div>
+      </header>
+
+      <main>
+
+        <div class="row">
+          <div id="menu-panel" class="panel-background">
+
+            <div class="container">
+
+              <div class="row">
+                <div class="panel-group col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
+
+                  <div class="panel panel-default col-xs-12 col-md-4 first-panel">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                      <h2 class="panel-title">
+                <h2 class="collapsed filter-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Date/Location
+                </h2>
+                      </h2>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        <div class="date-location-col date-location-text">
+                          <p>Find events meeting in the next
+                            <select data-bind="options: dateFilterOptions, optionsText: 'name', optionsValue: 'days', value: eventFilters.dateFilter, event: {change: applyEventFilters}">
+                          </select>
+                          </p>
+                          <p>and within
+                            <select data-bind="options: rangeFilterOptions, optionsText: 'name', optionsValue: 'miles', value: eventFilters.rangeFilter, event: {change: applyEventFilters}">
+                            </select> of
+                          </p>
+                          <form data-bind="submit: geocodeLocationFilter">
+                            <input id="locationFilter" type="text" placeholder="Address, area or landmark" data-bind="textInput: eventFilters.locationFilter">
+                            <button id="searchButton" name="search" type="submit">▶︎</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default col-xs-12 col-md-4">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                      <h2 class="panel-title">
+                <h2 class="collapsed filter-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Categories
+                </h2>
+                      </h2>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                      <div class="panel-body">
+                        <div class="categories-col" data-bind="foreach: categoryList">
+                          <span data-bind="text: name, click: $parent.toggleCategoryListItem, css: { categorySelected: selected() }" class="categoryListItem"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default col-xs-12 col-md-4">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h2 class="panel-title">
+                <h2 class="collapsed filter-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Events
+                </h2>
+                      </h2>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                        <div class="events-col" data-bind="foreach: eventList">
+                          <p data-bind="text: name, click: $parent.selectEventListItem, visible: visible" class="eventListItem"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div id="map-col" class="col-xs-12">
+            <div id="map"></div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Copyright statement for footer -->
+      <footer class="row">
+        <div id="footer-col" class="col-xs-12">
+          <p class="footer-copyright">&#169; 2017 Bert Ciccone, Map data &#169; 2017 Google, Event data &#169; 2017 Meetup</p>
+        </div>
+      </footer>
+
+    </div>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+
+    <!-- Load scripts after loading rest of page -->
+    <style>
+      /* */
+      /* Global Styles */
+      /* */
+      /* RGB
+        $color1: rgba(51, 102, 153, 1);
+        $color2: rgba(134, 187, 216, 1);
+        $color3: rgba(47, 72, 88, 1);
+        $color4: rgba(158, 228, 147, 1);
+        $color5: rgba(218, 247, 220, 1);
+      */
+      /** {
+        outline: 1px solid red !important;
+      }*/
+
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      h2 {
+        font-size: 1.2em;
+        margin-bottom: 0px;
+      }
+      /* */
+      /* Header Styles */
+      /* */
+
+      .row {
+        background-color: transparent;
+      }
+
+      #app-title-col {
+        text-align: center;
+        background-color: #19a0d8;
+      }
+
+      #hamburger {
+        display: none;
+      }
+
+      .logo-image {
+        margin-top: .2em;
+        width: 2.75em;
+        float: left;
+      }
+
+      .app-title {
+        margin-top: 0.5em;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 100;
+        color: white;
+      }
+      /* */
+      /* Main Content Styles */
+      /* */
+
+      .panel-background {
+        position: absolute;
+        z-index: 1;
+      }
+
+      .first-panel {
+        margin-top: 5px;
+      }
+
+      .panel {
+        background: transparent;
+        border-color: transparent;
+      }
+
+      .panel-heading,
+      .panel-collapse {
+        background-color: rgba(134, 187, 216, 1) !important;
+        opacity: 0.95;
+      }
+
+      .date-location-col,
+      .categories-col {
+        text-align: center;
+        overflow-y: auto;
+      }
+
+      .events-col {
+        text-align: center;
+        overflow-y: auto;
+      }
+
+      .filter-title {
+        margin-top: 0.5em;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+        color: rgba(47, 72, 88, 1);
+      }
+
+      #locationFilter {
+        width: 85%;
+      }
+
+      label {
+        font-size: 1em;
+      }
+
+      .categoryListItem {
+        font-size: 1.2em;
+        border: none;
+        border-radius: 10px;
+        padding: 2px 4px 2px 4px;
+        margin-right: 0 5px 3px 0;
+        color: rgba(47, 72, 88, 1);
+      }
+
+      .categorySelected {
+        border: none;
+        border-radius: 4px;
+        color: white;
+        background: rgba(51, 102, 153, 1);
+      }
+
+      .date-location-text,
+      .eventListItem,
+      .info-text {
+        font-size: 1.2em;
+        font-weight: 400;
+        color: rgba(47, 72, 88, 1);
+      }
+
+      .info-link-text {
+        font-size: 1.2em;
+        font-weight: 400;
+      }
+
+      .info-label-text {
+        font-size: 1em;
+        font-weight: bold;
+        color: rgba(47, 72, 88, 1);
+      }
+
+      #map-col {
+        margin-top: 0.2em;
+        height: 60em;
+        width: 100%;
+        background-color: #19a0d8;
+      }
+
+      #map {
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        position: absolute;
+      }
+
+      .info-image {
+        margin-top: .2em;
+        margin-bottom: 1em;
+        width: 8em;
+      }
+      /* */
+      /* Footer Styles */
+      /* */
+
+      #footer-col {
+        margin-top: 0.2em;
+        height: 4em;
+        background-color: #19a0d8;
+      }
+
+      .footer-copyright {
+        margin-top: 0.2em;
+        text-align: center;
+        font-weight: 100;
+        color: white;
+      }
+      /* */
+      /* Responsive Styles */
+      /* */
+
+      @media screen and (max-width: 991px) {
+        #hamburger {
+          display: block;
+          margin-top: 0.5em;
+          float: right;
+          font-size: 1.5em;
+        }
+        .panel-background {
+          position: absolute;
+          z-index: 1;
+          left: -1200px;
+          transition: 0.1s ease;
+        }
+      }
+    </style>
+    <script src="js/lib/jquery-3.1.0.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/model/appdata.js"></script>
+    <script src="js/view/map.js"></script>
+    <script src="js/sfmeetups.js"></script>
+  </body>
+
+</html>
